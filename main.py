@@ -1,4 +1,10 @@
 import os
+
+#print spaces so column alligns
+def print_space(column_width, info_length ):
+    spaces = column_width - info_length
+    print(' ' * spaces, end='')
+
 #displays the main menu
 def print_display_main_menu():
     print('=' * 40)
@@ -30,20 +36,23 @@ def get_user_selection():
 
 #add record to file
 def add_sales_record():
+    #gets the input to add to the record
     item_name = input('Item Name: ')
     quantity_sold_input = input('Quantity Sold: ')
     price_per_unit_input = input('Price Per Unit: ')
 
+    #validates the input before recording
     try:
         quantity_sold = int(quantity_sold_input)
         price_per_unit = float(price_per_unit_input)
     except ValueError:
         print('Inputs are Invalid Please Try Again.')
         add_sales_record()
-
     if not item_name.strip():
         print('Item Name cannot be blank')
         add_sales_record()
+
+    #opens the file to append
     try:
         fhand = open('sales_log.txt', 'a')
     except FileNotFoundError:
@@ -70,14 +79,25 @@ def view_all_records(total_units_sold = 0,
 
 
     for lines in fhand:
-        print(lines)
         lines_info = lines.split(',')
-        if len(lines_info) >0:
-            total_units_sold += int(lines_info[1])
-            grand_total_revenue += int(lines_info[3])
 
-        print(f'Total Units Sold: {total_units_sold}')
-        print(f'Grand Total Revenue: {grand_total_revenue}')
+
+        if len(lines_info) >1:
+            total_units_sold += int(lines_info[1])
+            grand_total_revenue += float(lines_info[3])
+            print(lines_info[0], end=' ')
+            print_space(9, len(lines_info[0]))
+            print(lines_info[1], end=' ')
+            print_space(8, len(lines_info[1]))
+            print(lines_info[2], end=' ')
+            print_space(15, len(lines_info[2]))
+            print(lines_info[3])
+
+        else:
+            print(lines.strip())
+
+    print(f'Total Units Sold: {total_units_sold}')
+    print(f'Grand Total Revenue: {grand_total_revenue}')
 
 #deletes the entire file
 def clear_all_record():
