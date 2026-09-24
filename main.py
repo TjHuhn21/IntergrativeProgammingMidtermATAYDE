@@ -64,6 +64,7 @@ def add_sales_record():
     total_amount = quantity_sold * price_per_unit
     fhand.write(f'{item_name},{quantity_sold},{price_per_unit},{total_amount}')
     print('Sales record saved successfully')
+    fhand.close()
     print_display_main_menu()
     get_user_selection()
 
@@ -98,10 +99,12 @@ def view_all_records(total_units_sold = 0,
 
     print(f'Total Units Sold: {total_units_sold}')
     print(f'Grand Total Revenue: {grand_total_revenue}')
+    fhand.close()
+    print_display_main_menu()
+    get_user_selection()
 
 #deletes the entire file
 def clear_all_record():
-    fhand = open('sales_log.txt')
     os.remove('sales_log.txt')
     print('All records cleared. No records remaining.')
     print_display_main_menu()
