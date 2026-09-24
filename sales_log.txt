@@ -1,0 +1,2 @@
+Item Name|Quantity|Price Per Unit|Total Amount
+Sushi,1,12.5,12.5
