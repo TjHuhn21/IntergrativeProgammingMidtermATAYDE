@@ -52,7 +52,7 @@ def add_sales_record():
         print('Item Name cannot be blank')
         add_sales_record()
 
-    #opens the file to append
+    #opens the file to append the information
     try:
         fhand = open('sales_log.txt', 'a')
     except FileNotFoundError:
